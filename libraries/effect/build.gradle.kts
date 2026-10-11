@@ -21,6 +21,7 @@ plugins {
 
 android {
   namespace = "androidx.media3.effect"
+  ndkVersion = providers.gradleProperty("headsetNdkVersion").getOrElse("29.0.13113456")
 
   defaultConfig {
     externalNativeBuild {
