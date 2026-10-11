@@ -2754,6 +2754,13 @@ public class MatroskaExtractor implements Extractor {
         float pixelWidthHeightRatio = Format.NO_VALUE;
         if (displayWidth != Format.NO_VALUE && displayHeight != Format.NO_VALUE) {
           pixelWidthHeightRatio = ((float) (height * displayWidth)) / (width * displayHeight);
+          // Matroska display dimensions describe one eye; Format dimensions describe the packed frame.
+          if (stereoMode == C.STEREO_MODE_LEFT_RIGHT || stereoMode == C.STEREO_MODE_RIGHT_LEFT) {
+            pixelWidthHeightRatio *= 2;
+          } else if (stereoMode == C.STEREO_MODE_TOP_BOTTOM
+              || stereoMode == C.STEREO_MODE_BOTTOM_TOP) {
+            pixelWidthHeightRatio /= 2;
+          }
         }
 
         @C.ColorSpace int colorSpace;
